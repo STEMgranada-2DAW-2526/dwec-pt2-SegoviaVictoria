@@ -49,7 +49,10 @@ export default function GameProvider({ children }) {
         }
 
         else if (action.type == 'BUY_DAMAGE_UPGRADE') {
-
+            const copyUpgrades = {...state.upgrades}
+            upgrade1 = "canon"
+            upgrade2 = "lanza"
+            upgrade3 = "arbol"
         }
 
         if (action.type == 'NEXT_WAVE' && state.damageDealt >= state.waveGoal) {
