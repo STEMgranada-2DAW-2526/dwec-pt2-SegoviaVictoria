@@ -65,7 +65,7 @@ export default function GameProvider({ children }) {
             const copyUpgrades = [...state.upgrades]
             let newCaramels = state.caramels
 
-            if (copyUpgrades.includes("canon")) {
+            if (copyUpgrades.includes("canon") && !copyUpgrades.includes("lanza") && !copyUpgrades.includes("arbol")) {
                 if (state.caramels >= 30) {
                     newCaramels -= 30
                     copyUpgrades.push("lanza")
