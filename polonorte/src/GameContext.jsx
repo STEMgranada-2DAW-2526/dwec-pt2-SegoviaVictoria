@@ -48,7 +48,7 @@ export default function GameProvider({ children }) {
             }
         }
 
-        else if (action.type == 'BUY_DAMAGE_UPGRADE') {
+        else if (action.type == 'BUY_DAMAGE_UPGRADE_1') {
             const copyUpgrades = [...state.upgrades]
             let newCaramels = state.caramels
 
@@ -59,23 +59,36 @@ export default function GameProvider({ children }) {
                 }
             }
 
-            else if (copyUpgrades.includes("canon")) {
+            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades }
+        }
+
+        else if (action.type == 'BUY_DAMAGE_UPGRADE_2') {
+            const copyUpgrades = [...state.upgrades]
+            let newCaramels = state.caramels
+
+            if (copyUpgrades.includes("canon")) {
                 if (state.caramels >= 30) {
                     newCaramels -= 30
                     copyUpgrades.push("lanza")
                 }
 
             }
+            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades }
+        }
 
-            else if (copyUpgrades.includes("lanza")) {
+        else if (action.type == 'BUY_DAMAGE_UPGRADE_3') {
+            const copyUpgrades = [...state.upgrades]
+            let newCaramels = state.caramels
+
+            if (copyUpgrades.includes("canon") && copyUpgrades.includes("lanza")) {
                 if (state.caramels >= 50) {
                     newCaramels -= 50
                     copyUpgrades.push("arbol")
                 }
             }
-
             newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades }
         }
+
 
         if (action.type == 'NEXT_WAVE' && state.damageDealt >= state.waveGoal) {
             newState = {
@@ -86,6 +99,7 @@ export default function GameProvider({ children }) {
                 wave: state.wave + 1
             }
         }
+        
 
         if (action.type == 'AUTO_SHOOT') {
             newState = {
