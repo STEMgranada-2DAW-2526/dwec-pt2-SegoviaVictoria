@@ -19,18 +19,31 @@ export default function GameProvider({ children }) {
     function handleDispatch(state, action) {
         let newState = { ...state }
 
-        if (action.type == 'CLICK_SHOOT') {
+        if (action.type == 'CLICK_SHOOT' && state.damageDealt < state.waveGoal) {
             newState = {
                 ...state,
                 damageDealt: state.damageDealt + state.damagePerShot
             }
         }
 
-        if (state.damageDealt == state.waveGoal) {
+        else if (action.type == 'AUTO_SHOOT') {
+
+        }
+
+        else if (action.type == 'BUY_MULTIPLIER') {
+
+        }
+
+        else if (action.type == 'BUY_DAMAGE_UPGRADE') {
+            
+        }
+
+        else if (action.type == 'NEXT_WAVE' && state.damageDealt == state.waveGoal) {
             newState = {
                 ...state,
                 damageDealt: 0,
-                waveGoal: state.waveGoal * 1.1
+                waveGoal: state.waveGoal * 1.1,
+                wave: state.wave +1
             }
         }
 

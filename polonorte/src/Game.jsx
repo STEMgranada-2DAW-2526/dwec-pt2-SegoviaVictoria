@@ -8,7 +8,7 @@ export default function Game() {
     return (
         <>
             <div>
-                <h3>Daño: {state.damageDealt} / {state.waveGoal}</h3>
+                <h3>Daño: {state.damageDealt} / {Math.round(state.waveGoal)}</h3>
                 <h3>Caramelos: {state.caramels}</h3>
                 <h3>Oleada: {state.wave}</h3>
             </div>
