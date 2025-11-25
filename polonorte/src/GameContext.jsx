@@ -50,9 +50,23 @@ export default function GameProvider({ children }) {
 
         else if (action.type == 'BUY_DAMAGE_UPGRADE') {
             const copyUpgrades = {...state.upgrades}
-            upgrade1 = "canon"
-            upgrade2 = "lanza"
-            upgrade3 = "arbol"
+            let newCaramels = state.caramels
+
+            // const possibleUpgrades = ["canon","lanza","arbol"]
+            // const upgradeFound = copyUpgrades.find(enemy => enemy.hp > 0)
+
+            if (!copyUpgrades.includes("canon") && !copyUpgrades.includes("lanza") && !copyUpgrades.includes("arbol")) {
+                if (state.caramels >= 15) {
+                    newCaramels -= 15
+                    copyUpgrades.push("canon")
+                }
+            }
+            else if (copyUpgrades.includes("canon")) {
+
+            } else if (copyUpgrades.includes("lanza")) {
+
+            }
+
         }
 
         if (action.type == 'NEXT_WAVE' && state.damageDealt >= state.waveGoal) {
