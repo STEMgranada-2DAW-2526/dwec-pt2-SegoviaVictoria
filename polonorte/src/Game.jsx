@@ -1,13 +1,20 @@
 import { useContext } from "react"
 import { GameContext } from "./GameContext"
 
-export default function Game () {
+export default function Game() {
 
     const { state } = useContext(GameContext)
 
     return (
         <>
-        <h3>{state.damageDealt} / {state.waveGoal}</h3>
+            <div>
+                <h3>Daño: {state.damageDealt} / {state.waveGoal}</h3>
+                <h3>Caramelos: {state.caramels}</h3>
+                <h3>Oleada: {state.wave}</h3>
+            </div>
+            <div>
+                <button className="disparar">🏹</button>
+            </div>
         </>
     )
 }

@@ -5,6 +5,7 @@ export const GameContext = createContext()
 export default function GameProvider ( {children} ) {
 
     const initialState = {
+        wave: 1,
         damageDealt: 0,
         waveGoal: 100,
         caramels: 20,
