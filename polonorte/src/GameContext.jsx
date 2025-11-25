@@ -6,6 +6,7 @@ export default function GameProvider({ children }) {
 
     const initialState = {
         wave: 1,
+        multiplierPrice: 10,
         damageDealt: 0,
         waveGoal: 100,
         caramels: 20,
@@ -15,6 +16,16 @@ export default function GameProvider({ children }) {
 
     const [state, dispatch] = useReducer(handleDispatch, initialState)
     const value = { state, dispatch }
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            dispatch({ type: 'AUTO_SHOOT' })
+            dispatch({ type: 'NEXT_WAVE' })
+        }, 1000);
+
+        return () => { clearInterval(timer) }
+    }, [])
+
 
     function handleDispatch(state, action) {
         let newState = { ...state }
@@ -26,24 +37,32 @@ export default function GameProvider({ children }) {
             }
         }
 
-        else if (action.type == 'AUTO_SHOOT') {
-
-        }
-
         else if (action.type == 'BUY_MULTIPLIER') {
-
+            newState = {
+                ...state,
+                autoShotsPerSecond: state.autoShotsPerSecond + 1,
+                multiplierPrice: state.multiplierPrice * 1.2
+            }
         }
 
         else if (action.type == 'BUY_DAMAGE_UPGRADE') {
-            
+
         }
 
         else if (action.type == 'NEXT_WAVE' && state.damageDealt == state.waveGoal) {
             newState = {
                 ...state,
                 damageDealt: 0,
+                caramels: state.caramels + 10,
                 waveGoal: state.waveGoal * 1.1,
-                wave: state.wave +1
+                wave: state.wave + 1
+            }
+        }
+
+        else if (action.type == 'AUTO_SHOOT') {
+            newState = {
+                ...state,
+                damageDealt: state.damageDealt + state.autoShotsPerSecond,
             }
         }
 
