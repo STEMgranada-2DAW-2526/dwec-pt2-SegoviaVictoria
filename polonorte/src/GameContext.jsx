@@ -10,7 +10,7 @@ export default function GameProvider({ children }) {
         multiplierCount: 0,
         damageDealt: 0,
         waveGoal: 100,
-        caramels: 30,
+        caramels: 100,
         damagePerShot: 1,
         autoShotsPerSecond: 1,
         upgrades: []
@@ -39,7 +39,7 @@ export default function GameProvider({ children }) {
             }
         }
 
-        else if (action.type == 'BUY_MULTIPLIER' && state.caramels >= state. multiplierPrice) {
+        else if (action.type == 'BUY_MULTIPLIER' && state.caramels >= state.multiplierPrice) {
             newState = {
                 ...state,
                 autoShotsPerSecond: state.autoShotsPerSecond + 1,
@@ -49,11 +49,8 @@ export default function GameProvider({ children }) {
         }
 
         else if (action.type == 'BUY_DAMAGE_UPGRADE') {
-            const copyUpgrades = {...state.upgrades}
+            const copyUpgrades = [...state.upgrades]
             let newCaramels = state.caramels
-
-            // const possibleUpgrades = ["canon","lanza","arbol"]
-            // const upgradeFound = copyUpgrades.find(enemy => enemy.hp > 0)
 
             if (!copyUpgrades.includes("canon") && !copyUpgrades.includes("lanza") && !copyUpgrades.includes("arbol")) {
                 if (state.caramels >= 15) {
@@ -61,12 +58,23 @@ export default function GameProvider({ children }) {
                     copyUpgrades.push("canon")
                 }
             }
-            else if (copyUpgrades.includes("canon")) {
 
-            } else if (copyUpgrades.includes("lanza")) {
+            else if (copyUpgrades.includes("canon")) {
+                if (state.caramels >= 30) {
+                    newCaramels -= 30
+                    copyUpgrades.push("lanza")
+                }
 
             }
 
+            else if (copyUpgrades.includes("lanza")) {
+                if (state.caramels >= 50) {
+                    newCaramels -= 50
+                    copyUpgrades.push("arbol")
+                }
+            }
+
+            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades }
         }
 
         if (action.type == 'NEXT_WAVE' && state.damageDealt >= state.waveGoal) {
@@ -84,8 +92,10 @@ export default function GameProvider({ children }) {
                 ...state,
                 damageDealt: state.damageDealt + state.autoShotsPerSecond
             }
-        
+
         }
+
+        console.log(state.upgrades)
 
         return newState
     }
