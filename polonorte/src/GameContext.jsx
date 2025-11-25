@@ -106,8 +106,6 @@ export default function GameProvider({ children }) {
 
         }
 
-        console.log(state.upgrades)
-
         return newState
     }
 
