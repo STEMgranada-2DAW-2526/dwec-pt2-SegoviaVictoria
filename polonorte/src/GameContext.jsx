@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react"
+import { createContext, useReducer, useEffect } from "react"
 
 export const GameContext = createContext()
 
@@ -7,10 +7,12 @@ export default function GameProvider({ children }) {
     const initialState = {
         wave: 1,
         multiplierPrice: 10,
+        multiplierCount: 0,
         damageDealt: 0,
         waveGoal: 100,
-        caramels: 20,
+        caramels: 30,
         damagePerShot: 1,
+        autoShotsPerSecond: 1,
         upgrades: []
     }
 
@@ -37,11 +39,12 @@ export default function GameProvider({ children }) {
             }
         }
 
-        else if (action.type == 'BUY_MULTIPLIER') {
+        else if (action.type == 'BUY_MULTIPLIER' && state.caramels >= state. multiplierPrice) {
             newState = {
                 ...state,
                 autoShotsPerSecond: state.autoShotsPerSecond + 1,
-                multiplierPrice: state.multiplierPrice * 1.2
+                multiplierPrice: state.multiplierPrice * 1.2,
+                caramels: state.caramels - state.multiplierPrice
             }
         }
 
@@ -49,7 +52,7 @@ export default function GameProvider({ children }) {
 
         }
 
-        else if (action.type == 'NEXT_WAVE' && state.damageDealt == state.waveGoal) {
+        if (action.type == 'NEXT_WAVE' && state.damageDealt >= state.waveGoal) {
             newState = {
                 ...state,
                 damageDealt: 0,
@@ -59,11 +62,12 @@ export default function GameProvider({ children }) {
             }
         }
 
-        else if (action.type == 'AUTO_SHOOT') {
+        if (action.type == 'AUTO_SHOOT') {
             newState = {
                 ...state,
-                damageDealt: state.damageDealt + state.autoShotsPerSecond,
+                damageDealt: state.damageDealt + state.autoShotsPerSecond
             }
+        
         }
 
         return newState
