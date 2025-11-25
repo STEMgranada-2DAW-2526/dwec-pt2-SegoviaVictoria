@@ -10,7 +10,7 @@ export default function GameProvider({ children }) {
         multiplierCount: 0,
         damageDealt: 0,
         waveGoal: 100,
-        caramels: 100,
+        caramels: 20,
         damagePerShot: 1,
         autoShotsPerSecond: 1,
         upgrades: []
@@ -58,7 +58,7 @@ export default function GameProvider({ children }) {
                 }
             }
 
-            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades }
+            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades, damagePerShot: state.damagePerShot + 2 }
         }
 
         else if (action.type == 'BUY_DAMAGE_UPGRADE_2') {
@@ -72,7 +72,7 @@ export default function GameProvider({ children }) {
                 }
 
             }
-            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades }
+            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades, damagePerShot: state.damagePerShot + 5 }
         }
 
         else if (action.type == 'BUY_DAMAGE_UPGRADE_3') {
@@ -85,7 +85,7 @@ export default function GameProvider({ children }) {
                     copyUpgrades.push("arbol")
                 }
             }
-            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades }
+            newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades, damagePerShot: state.damagePerShot + 10 }
         }
 
         if (action.type == 'NEXT_WAVE' && state.damageDealt >= state.waveGoal) {
