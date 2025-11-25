@@ -3,7 +3,7 @@ import { GameContext } from "./GameContext"
 
 export default function Game() {
 
-    const { state } = useContext(GameContext)
+    const { state, dispatch } = useContext(GameContext)
 
     return (
         <>
@@ -13,7 +13,7 @@ export default function Game() {
                 <h3>Oleada: {state.wave}</h3>
             </div>
             <div>
-                <button className="disparar">🏹</button>
+                <button className="disparar" onClick={() => dispatch({type: 'CLICK_SHOOT'})}>🏹</button>
             </div>
         </>
     )
