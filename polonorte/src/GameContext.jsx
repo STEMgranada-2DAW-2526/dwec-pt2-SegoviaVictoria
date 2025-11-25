@@ -28,7 +28,6 @@ export default function GameProvider({ children }) {
         return () => { clearInterval(timer) }
     }, [])
 
-
     function handleDispatch(state, action) {
         let newState = { ...state }
 
@@ -89,7 +88,6 @@ export default function GameProvider({ children }) {
             newState = { ...state, caramels: newCaramels, upgrades: copyUpgrades }
         }
 
-
         if (action.type == 'NEXT_WAVE' && state.damageDealt >= state.waveGoal) {
             newState = {
                 ...state,
@@ -100,7 +98,6 @@ export default function GameProvider({ children }) {
             }
         }
         
-
         if (action.type == 'AUTO_SHOOT') {
             newState = {
                 ...state,
